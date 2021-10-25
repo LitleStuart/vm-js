@@ -5,20 +5,48 @@ const RAM = fs
   .toLowerCase()
   .split(/\s+/);
 
-for (let IP = 0; IP < RAM.length; IP++) {
+let IP = 0;
+
+while (RAM[IP] !== "из_леса") {
   switch (RAM[IP]) {
-    case "собрать":
+    case "гриб":
       RAM[RAM[IP + 1]] = Number(RAM[IP + 2]);
+      IP += 3;
       break;
     case "смешать":
       RAM[RAM[IP + 3]] = RAM[RAM[IP + 1]] + RAM[RAM[IP + 2]];
+      IP += 4;
       break;
-    case "подать":
+    case "выкинуть":
+      RAM[RAM[IP + 3]] = RAM[RAM[IP + 1]] - RAM[RAM[IP + 2]];
+      IP += 4;
+      break;
+    case "преумножить":
+      RAM[RAM[IP + 3]] = RAM[RAM[IP + 1]] * RAM[RAM[IP + 2]];
+      IP += 4;
+      break;
+    case "раздать_родне":
+      RAM[RAM[IP + 3]] = RAM[RAM[IP + 1]] / RAM[RAM[IP + 2]];
+      IP += 4;
+      break;
+    case "по_грибы":
+      IP = Number(RAM[IP + 1]);
+      IP += 2;
+      break;
+    case "по_грибы_если_не_отравился":
+      if (RAM[RAM[IP + 1]] != 0) {
+        IP = Number(RAM[IP + 2]);
+        break;
+      }
+      IP += 3;
+      break;
+    case "хвалиться":
       console.log(RAM[RAM[IP + 1]]);
+      IP += 2;
       break;
 
     default:
-      break;
+      return;
   }
+  // console.log(RAM);
 }
-console.log(RAM);
