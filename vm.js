@@ -3,8 +3,14 @@ const fs = require("fs");
 // you need enter `npm install prompt-sync` on your cmd
 const prompt = require("prompt-sync")({ sigint: true });
 
-const RAM = fs.readFileSync("nod.mush", "utf-8").toLowerCase().split(/\s+/);
+let RAM;
 
+try {
+  RAM = fs.readFileSync(process.argv[2], "utf-8").toLowerCase().split(/\s+/);
+} catch {
+  console.log(`Incorrect arguments. Try 'node vm.js [PROGRAM FILE]'`);
+  return;
+}
 let IP = 0;
 
 while (RAM[IP] !== "из_леса") {
